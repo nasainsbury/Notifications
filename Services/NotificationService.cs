@@ -1,3 +1,4 @@
+using Notifications.Data;
 using Notifications.Models;
 
 namespace Notifications.Services;
@@ -5,15 +6,21 @@ namespace Notifications.Services;
 public class NotificationService : INotificationService
 {
   private static readonly Dictionary<Guid, Notification> _notifications = new();
-  public Notification CreateNotification(Notification notification)
+  private readonly ApplicationDbContext _context;
+  public NotificationService(ApplicationDbContext context)
   {
-    _notifications.Add(notification.Id, notification);
+    _context = context;
+  }
+  public async Task<Notification> CreateNotification(Notification notification)
+  {
+    _context.Notifications.Add(notification);
+    await _context.SaveChangesAsync();
 
     return notification;
   }
 
-  public Notification Get(Guid id)
+  public IQueryable<Notification> Get(Guid id)
   {
-    return _notifications[id];
+    return _context.Notifications.Where(n => n.Id == id);
   }
 }

@@ -11,10 +11,10 @@ public class NotificationController : ControllerBase
   }
 
   [HttpPost("/notification")]
-  public IActionResult CreateNotification([FromBody] PostNotificationBody body)
+  public async Task<IActionResult> CreateNotification([FromBody] PostNotificationBody body)
   {
     Notification notification = Notification.Create(Id: Guid.NewGuid(), Content: body.Content, CreatedBy: body.CreatedBy);
-    Notification created = _notificationService.CreateNotification(notification);
+    Notification created = await _notificationService.CreateNotification(notification);
 
     return Ok(created);
   }
@@ -22,7 +22,7 @@ public class NotificationController : ControllerBase
   [HttpGet("/notification/{id:guid}")]
   public IActionResult GetNotification(Guid id)
   {
-    Notification notification = _notificationService.Get(id);
-    return Ok(notification);
+    _notificationService.Get(id);
+    return Ok(id);
   }
 }
