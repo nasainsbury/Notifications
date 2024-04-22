@@ -22,6 +22,6 @@ public class NotificationService : INotificationService
 
   public async Task<Notification> Get(Guid id)
   {
-    return await _context.Notifications.Where(n => n.Id == id).FirstAsync<Notification>();
+    return await _context.Notifications.Where(n => n.Id == id).FirstAsync();
   }
 }
