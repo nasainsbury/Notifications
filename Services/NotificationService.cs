@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Notifications.Data;
 using Notifications.Models;
 
@@ -19,8 +20,8 @@ public class NotificationService : INotificationService
     return notification;
   }
 
-  public IQueryable<Notification> Get(Guid id)
+  public async Task<Notification> Get(Guid id)
   {
-    return _context.Notifications.Where(n => n.Id == id);
+    return await _context.Notifications.Where(n => n.Id == id).FirstAsync<Notification>();
   }
 }

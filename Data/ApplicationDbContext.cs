@@ -10,5 +10,12 @@ namespace Notifications.Data
     }
 
     public DbSet<Notification> Notifications { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+      modelBuilder.Entity<Notification>()
+          .Property(n => n.Id)
+          .ValueGeneratedOnAdd();
+    }
   }
 }

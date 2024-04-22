@@ -7,14 +7,13 @@ public class Notification
   public string CreatedBy { get; set; }
 
 
-  private Notification(Guid id, string content, string createdBy)
+  private Notification(string content, string createdBy)
   {
-    Id = id;
     Content = content;
     CreatedBy = createdBy;
   }
-  public static Notification Create(Guid Id, string Content, string CreatedBy)
+  public static Notification Create(string Content, string CreatedBy)
   {
-    return new Notification(Id, Content, CreatedBy);
+    return new Notification(Content, CreatedBy);
   }
 }
