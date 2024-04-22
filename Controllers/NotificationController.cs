@@ -10,12 +10,19 @@ public class NotificationController : ControllerBase
     _notificationService = notificationService;
   }
 
-  [HttpGet("/cool")]
-  public IActionResult CreateNotification()
+  [HttpPost("/notification")]
+  public IActionResult CreateNotification([FromBody] PostNotificationBody body)
   {
-    Notification notification = Notification.Create(Id: Guid.NewGuid(), Content: "a", CreatedBy: "a");
+    Notification notification = Notification.Create(Id: Guid.NewGuid(), Content: body.Content, CreatedBy: body.CreatedBy);
     Notification created = _notificationService.CreateNotification(notification);
 
     return Ok(created);
+  }
+
+  [HttpGet("/notification/{id:guid}")]
+  public IActionResult GetNotification(Guid id)
+  {
+    Notification notification = _notificationService.Get(id);
+    return Ok(notification);
   }
 }

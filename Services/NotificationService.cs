@@ -11,4 +11,9 @@ public class NotificationService : INotificationService
 
     return notification;
   }
+
+  public Notification Get(Guid id)
+  {
+    return _notifications[id];
+  }
 }
